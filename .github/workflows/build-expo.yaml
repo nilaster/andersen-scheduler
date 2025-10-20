@@ -9,6 +9,11 @@ jobs:
     steps:
       - name: 🏗 Setup repo
         uses: actions/checkout@v4
+        with:
+          # We need to fetch all history and branches for versioning
+          fetch-depth: 0
+          # A personal access token is required to push commits back
+          token: ${{ secrets.PAT }}
 
       - name: 🏗 Setup Node
         uses: actions/setup-node@v4
@@ -24,6 +29,38 @@ jobs:
 
       - name: 📦 Install dependencies
         run: npm ci
+
+      - name: ⬆️ Bump version
+        # This step runs only if the commit message does not already contain "chore: bump version"
+        # to prevent an infinite loop of version bumps.
+        if: "!contains(github.event.head_commit.message, 'chore: bump version')"
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Bump version in package.json and create a git tag
+          npm version minor -m "chore: bump version to %s"
+          
+          # Extract new version from package.json
+          NEW_VERSION=$(node -p "require('./package.json').version")
+          
+          # Update the version in app.json using a Node.js script
+          node -e "
+            const fs = require('fs');
+            const appJsonPath = './app.json';
+            const appJson = JSON.parse(fs.readFileSync(appJsonPath));
+            appJson.expo.version = '$NEW_VERSION';
+            fs.writeFileSync(appJsonPath, JSON.stringify(appJson, null, 2) + '\n');
+            console.log(`Updated app.json to version ${appJson.expo.version}`);
+          "
+          
+          # Add the modified app.json to the commit
+          git add app.json
+          git commit --amend --no-edit
+          
+          # Push the commit and tags back to the repository
+          git push
+          git push --tags
 
       - name: 🚀 Build preview app
         run: eas build --profile preview --non-interactive
