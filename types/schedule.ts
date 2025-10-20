@@ -5,6 +5,7 @@ export enum ScheduleType {
 }
 
 export type BaseSchedule = {
+    id: number;
     description: string;
     days: number[]; // 0 (Sunday) to 6 (Saturday)
 }
@@ -17,12 +18,13 @@ export type TimeSchedule = BaseSchedule & {
 
 export type ChargeLevelSchedule = BaseSchedule & {
     type: ScheduleType.CHARGE_LEVEL;
-    ready_by: string; // "HH:MM" format. I may change this to a number if needed.
+    ready_by: string; // "HH:MM" format
     desired_charge_level: number;
 }
 
 export type MileageSchedule = BaseSchedule & {
     type: ScheduleType.MILEAGE;
+    ready_by: string; // "HH:MM" format
     desired_mileage: number;
 }
 
