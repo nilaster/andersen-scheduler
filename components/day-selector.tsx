@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   dayButtonActive: {
-    backgroundColor: '#007AFF',
-    borderColor: '#007AFF',
+    backgroundColor: '#000000',
+    borderColor: '#000000',
   },
   dayButtonDisabled: {
     opacity: 0.5,
