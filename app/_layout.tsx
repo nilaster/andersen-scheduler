@@ -32,6 +32,8 @@ function RootLayoutNav() {
       <Stack>
         <Stack.Screen name="login" options={{ headerShown: false }} />
         <Stack.Screen name="index" options={{ title: 'Home' }} />
+        <Stack.Screen name="add-schedule" options={{ title: 'Add Schedule' }} />
+        <Stack.Screen name="[id]" options={{ title: 'Schedule Detail' }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
       </Stack>
       <StatusBar style="auto" />
