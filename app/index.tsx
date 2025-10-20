@@ -2,6 +2,7 @@
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
+import { ThemedButton } from '@/components/ui/themed-button';
 import { useAuth } from '@/contexts/AuthContext';
 import { getSchedules } from '@/lib/db';
 import { Schedule, ScheduleType } from '@/types/schedule';
@@ -110,10 +111,14 @@ export default function HomeScreen() {
       <ScrollView>
 
         <ThemedView style={styles.actionContainer}>
-          <TouchableOpacity style={styles.addButton} onPress={handleAddItem}>
+          <ThemedButton
+            variant="primary"
+            onPress={handleAddItem}
+            style={styles.addButton}
+          >
             <IconSymbol name="plus" size={20} color="white" />
             <ThemedText style={styles.addButtonText}>Add New Schedule</ThemedText>
-          </TouchableOpacity>
+          </ThemedButton>
         </ThemedView>
 
         <ThemedView style={styles.listContainer}>
@@ -167,7 +172,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   addButton: {
-    backgroundColor: '#007AFF',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',

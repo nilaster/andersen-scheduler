@@ -1,7 +1,9 @@
+import { ThemedButton } from '@/components/ui/themed-button';
 import { useAuth } from '@/contexts/AuthContext';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { Alert, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ThemedText } from '@/components/themed-text';
 
 export default function LoginScreen() {
     const [username, setUsername] = useState('');
@@ -64,15 +66,15 @@ export default function LoginScreen() {
                         editable={!isLoading}
                     />
 
-                    <TouchableOpacity
-                        style={[styles.button, isLoading && styles.buttonDisabled]}
+                    <ThemedButton
                         onPress={handleLogin}
                         disabled={isLoading}
+                        style={{ marginTop: 10 }}
                     >
-                        <Text style={styles.buttonText}>
+                        <ThemedText style={{ color: 'white' }}>
                             {isLoading ? 'Signing in...' : 'Sign In'}
-                        </Text>
-                    </TouchableOpacity>
+                        </ThemedText>
+                    </ThemedButton>
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>
@@ -124,21 +126,5 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         fontSize: 16,
         backgroundColor: '#fafafa',
-    },
-    button: {
-        height: 50,
-        backgroundColor: '#007AFF',
-        borderRadius: 8,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 10,
-    },
-    buttonDisabled: {
-        backgroundColor: '#ccc',
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 16,
-        fontWeight: '600',
     },
 });

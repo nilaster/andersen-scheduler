@@ -20,6 +20,7 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
+import { ThemedButton } from './ui/themed-button';
 
 const SCHEDULE_TYPES: { label: string; value: ScheduleType }[] = [
     { label: 'Time Based', value: ScheduleType.TIME },
@@ -480,7 +481,7 @@ export function ScheduleForm({ scheduleId }: ScheduleFormProps) {
 
                     {/* Submit Button */}
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity
+                        <ThemedButton
                             style={[styles.submitButton, isDisabled && styles.disabledButton]}
                             onPress={handleSubmit}
                             disabled={isDisabled}
@@ -492,13 +493,13 @@ export function ScheduleForm({ scheduleId }: ScheduleFormProps) {
                                     {isEditMode ? 'Update Schedule' : 'Create Schedule'}
                                 </ThemedText>
                             )}
-                        </TouchableOpacity>
+                        </ThemedButton>
                     </View>
 
                     {/* Delete Button */}
                     {isEditMode && (
                         <View style={styles.buttonContainer}>
-                            <TouchableOpacity
+                            <ThemedButton
                                 style={[styles.deleteButton, isDisabled && styles.disabledButton]}
                                 onPress={handleDelete}
                                 disabled={isDisabled}
@@ -508,7 +509,7 @@ export function ScheduleForm({ scheduleId }: ScheduleFormProps) {
                                 ) : (
                                     <ThemedText style={styles.deleteButtonText}>Delete Schedule</ThemedText>
                                 )}
-                            </TouchableOpacity>
+                            </ThemedButton>
                         </View>
                     )}
                 </ThemedView>
@@ -562,7 +563,6 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
     submitButton: {
-        backgroundColor: '#007AFF',
         borderRadius: 8,
         paddingVertical: 12,
         alignItems: 'center',
